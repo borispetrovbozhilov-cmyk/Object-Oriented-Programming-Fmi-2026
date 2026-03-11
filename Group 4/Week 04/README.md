@@ -23,6 +23,7 @@ enum class ErrorCode {
 #### Атрибути:
 
 - `unsigned id`
+  - `id`- то трябва да се генерира автоматично и да е уникално за всеки служител
 - `char name[]` - низ с максимална дължина 127 символа;
 - `char position[]` - низ с максимална дължина 127 символа;
 - `double salary`
@@ -33,6 +34,7 @@ enum class ErrorCode {
 - Конструктор с параметри.
 - `double getSalary() const` - връща заплатата на служителя.
 - `ErrorCode updateSalary(double amount)` - актуализира заплатата на служителя.
+- ф-я която връща id-то на последния инициализиран служител
 
 ---
 
@@ -50,6 +52,7 @@ enum class ErrorCode {
 - Конструктор с параметри.
 - `ErrorCode addEmployee(const Employee& employee)` - добавя служител към отдела.
 - `ErrorCode removeEmployee(unsigned id)` - премахва служител от отдела.
+- `static unsigned getMaxEmployees()` - връща максималния брой служители, които един отдел може да съдържа (т.е. 15).
   
 ---
 
