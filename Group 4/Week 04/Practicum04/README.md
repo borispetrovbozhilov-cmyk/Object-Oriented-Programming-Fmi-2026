@@ -63,7 +63,6 @@ enum class ErrorCode {
 
 #### Атрибути:
 
-- `static Company* instance` - указател към единствената инстанция;
 - `Department departments[]` - масив с максималнa големина 10;
 - `unsigned countOfDepartments`
 
