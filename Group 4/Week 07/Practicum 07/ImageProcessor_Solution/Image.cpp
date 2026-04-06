@@ -166,9 +166,9 @@ Image::operator bool() const {
 }
 
 // creating the image
-void Image::createImage(const char* fileName) const {
+void Image::createImage(const char* outputFileName) const {
 
-    std::ofstream outputImage(fileName, std::ios::binary);
+    std::ofstream outputImage(outputFileName, std::ios::binary);
 
     outputImage << "P" << 0 + pType << std::endl;
     outputImage << width << " " << height << std::endl;
@@ -178,3 +178,58 @@ void Image::createImage(const char* fileName) const {
 
     outputImage.close();
 }
+
+void Image::createInvertedImage(const char* outputFileName) const {
+
+    std::ofstream outputImage(outputFileName, std::ios::binary);
+
+    outputImage << "P6" << std::endl;
+    outputImage << width << " " << height << std::endl;
+    outputImage << 0 + maxVal << std::endl;
+
+    int dataSize = getSizeOfData();
+
+    unsigned char* invertedData = new unsigned char[dataSize];
+
+    for (int i = 0; i < dataSize; i++) {
+
+        invertedData[i] = maxVal - data[i];
+    }
+
+    outputImage.write(reinterpret_cast<char*>(invertedData), dataSize);
+
+    delete[] invertedData;
+
+    outputImage.close();
+}
+
+void Image::createGrayscaleImage(const char *outputFileName) const {
+
+    std::ofstream outputImage(outputFileName, std::ios::binary);
+
+    outputImage << "P5" << std::endl;
+    outputImage << width << " " << height << std::endl;
+    outputImage << 0 + maxVal << std::endl;
+
+    int dataSize = getSizeOfData() / COUNT_OF_CHANNELS_RGB;
+
+    unsigned char* grayscaleData = new unsigned char[dataSize];
+
+    for (int i = 0; i < dataSize; i++) {
+
+        int srcPixelIndex = i * 3;
+
+        grayscaleData[i] = 0.299 * data[srcPixelIndex]
+                         + 0.587 * data[srcPixelIndex + 1]
+                         + 0.114 * data[srcPixelIndex + 2];
+    }
+
+    outputImage.write(reinterpret_cast<char*>(grayscaleData), dataSize);
+
+    delete[] grayscaleData;
+
+    outputImage.close();
+
+}
+
+

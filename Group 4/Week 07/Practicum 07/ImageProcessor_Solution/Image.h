@@ -43,8 +43,9 @@ public:
     explicit operator bool() const;
 
     // creating the image stored
-    void createImage(const char* fileName) const;
-
+    void createImage(const char* outputFileName) const;
+    void createInvertedImage(const char* outputFileName) const;
+    void createGrayscaleImage(const char* outputFileName) const;
 };
 
 
