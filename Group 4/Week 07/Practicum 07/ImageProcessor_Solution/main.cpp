@@ -1,14 +1,16 @@
 #include <iostream>
 
+#include "GrayscaleImage.h"
 #include "Image.h"
+#include "InvertedImage.h"
 
 int main() {
 
-    Image birdImage("bird.ppm");
+    InvertedImage inverted_image = InvertedImage("bird.ppm");
+    GrayscaleImage grayscale_image = GrayscaleImage("bird.ppm");
 
-    birdImage.createImage("birdProcessed.ppm");
-    birdImage.createInvertedImage("birdInverted.ppm");
-    birdImage.createGrayscaleImage("birdGrayscale.pgm");
+    inverted_image.createImage("InvertedBird.ppm");
+    grayscale_image.createImage("GrayscaleBird.pgm");
 
     return 0;
 }

@@ -11,7 +11,12 @@ class Image {
 
 private:
 
-    static constexpr int COUNT_OF_CHANNELS_RGB = 3;
+    // this fixes the type of the base image from which the other versions are created to PPM
+    static constexpr int COUNT_OF_CHANNELS_BASE_IMAGE = 3;
+
+    void copyDataFrom(const Image& other) const;
+
+protected:
 
     // the pType variable stores the index after P in the header - used to determine the image type
     char pType = 0;
@@ -21,9 +26,10 @@ private:
 
     unsigned char*data = nullptr;
 
-    int getSizeOfData() const;
     void setToInvalidState();
-    void copyDataFrom(const Image& other) const;
+    int getSizeOfData(int countOfChannels) const;
+
+    virtual int getCountOfChannels() const = 0;
 
 public:
 
@@ -37,15 +43,13 @@ public:
     Image(Image&& other) noexcept;
     Image& operator=(Image&& other) noexcept;
 
-    ~Image();
+    virtual ~Image();
 
     // predefining operators
     explicit operator bool() const;
 
     // creating the image stored
-    void createImage(const char* outputFileName) const;
-    void createInvertedImage(const char* outputFileName) const;
-    void createGrayscaleImage(const char* outputFileName) const;
+    virtual void createImage(const char* outputFileName) const;
 };
 
 
