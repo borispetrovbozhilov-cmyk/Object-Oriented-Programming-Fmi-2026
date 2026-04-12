@@ -1,0 +1,16 @@
+//
+// Created by Boris Bozhilov on 4/13/2026.
+//
+
+#ifndef OBJECT_ORIENTED_PROGRAMMING_FMI_2026_COMPANY_H
+#define OBJECT_ORIENTED_PROGRAMMING_FMI_2026_COMPANY_H
+
+
+
+class Company {
+
+};
+
+
+
+#endif //OBJECT_ORIENTED_PROGRAMMING_FMI_2026_COMPANY_H
