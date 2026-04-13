@@ -7,6 +7,8 @@
 
 namespace Utils {
 
+    constexpr double EPSILON = 0.01;
+
     enum class ErrorCode {
         OK,
         NotFound,
@@ -14,6 +16,10 @@ namespace Utils {
         InvalidInput,
         Full
     };
+
+    void copyString(const char* source, char*& destination);
+    void freeString(char*& source);
+    void moveString(char*& source, char*& destination) noexcept;
 }
 
 
