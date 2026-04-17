@@ -14,6 +14,7 @@ class Employee {
 private:
 
     static constexpr unsigned int MAX_STRING_CAPACITY = 128;
+    static constexpr double RATE_OF_SALARY_INCREASE = 0.10;
 
     static unsigned int countOfEmployees;
 
@@ -23,6 +24,10 @@ private:
     double salary = -1;
 
 public:
+
+    // utility functions
+    bool isValid() const;
+    unsigned int getID() const;
 
     // rule of 5
     Employee();

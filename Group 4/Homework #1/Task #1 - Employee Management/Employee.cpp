@@ -10,6 +10,24 @@
 
 unsigned int Employee::countOfEmployees = 0;
 
+// utility functions
+bool Employee::isValid() const {
+
+    if (id <= 0) return false;
+    if (name == nullptr) return false;
+    if (name[0] == '\0') return false;
+    if (position == nullptr) return false;
+    if (position[0] == '\0') return false;
+    if (salary < 0) return false;
+
+    return true;
+}
+
+unsigned int Employee::getID() const {
+
+    return id;
+}
+
 // rule of 5
 Employee::Employee() = default;
 
@@ -39,6 +57,9 @@ Employee& Employee::operator=(const Employee &other) {
 
     if (this == &other) return *this;
 
+    // if other isn't a valid Employee object then we don't copy its data and leave it as it is
+    if (!other.isValid()) return *this;
+
     this->id = other.id;
     this->salary = other.salary;
 
@@ -48,21 +69,31 @@ Employee& Employee::operator=(const Employee &other) {
     return *this;
 }
 
-Employee::Employee(Employee &&other)  noexcept : id(other.id), salary(other.salary){
+Employee::Employee(Employee &&other) noexcept : id(other.id), salary(other.salary){
 
     Utils::moveString(other.name, name);
     Utils::moveString(other.position, position);
+
+    other.id = 0;
+    other.salary = -1;
 }
+
 
 Employee& Employee::operator=(Employee &&other) noexcept {
 
     if (this == &other) return *this;
 
+    // if other isn't a valid Employee object then we don't steal its data and leave it as it is
+    if (!other.isValid()) return *this;
+
     id = other.id;
     salary = other.salary;
 
-    Utils::copyString(other.name, name);
-    Utils::copyString(other.position, position);
+    Utils::moveString(other.name, name);
+    Utils::moveString(other.position, position);
+
+    other.id = 0;
+    other.salary = -1;
 
     return *this;
 }
@@ -70,7 +101,7 @@ Employee& Employee::operator=(Employee &&other) noexcept {
 Employee::~Employee() {
 
     id = 0;
-    salary = 0;
+    salary = -1;
     Utils::freeString(name);
     Utils::freeString(position);
 }
@@ -103,7 +134,7 @@ unsigned int Employee::getLastEmployeeID() {
 // operators
 Employee &Employee::operator++() {
 
-    salary += salary * 0.10;
+    salary += salary * RATE_OF_SALARY_INCREASE;
 
     return *this;
 }
