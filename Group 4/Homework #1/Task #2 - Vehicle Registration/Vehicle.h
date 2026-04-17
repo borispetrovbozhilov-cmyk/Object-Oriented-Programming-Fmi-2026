@@ -1,0 +1,16 @@
+//
+// Created by Boris Bozhilov on 4/18/2026.
+//
+
+#ifndef OBJECT_ORIENTED_PROGRAMMING_FMI_2026_VEHICLE_H
+#define OBJECT_ORIENTED_PROGRAMMING_FMI_2026_VEHICLE_H
+
+
+
+class Vehicle {
+
+};
+
+
+
+#endif //OBJECT_ORIENTED_PROGRAMMING_FMI_2026_VEHICLE_H
