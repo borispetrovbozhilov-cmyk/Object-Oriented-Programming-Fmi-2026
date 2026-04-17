@@ -11,6 +11,32 @@
 unsigned int Employee::countOfEmployees = 0;
 
 // utility functions
+void Employee::copyArrayOfEmployees(const Employee *source, const unsigned int sourceSize, Employee *&destination) {
+
+    if(source == nullptr) return;
+
+    delete[] destination;
+
+    destination = new Employee[sourceSize];
+
+    for (int i = 0; i < sourceSize; i++) {
+
+        destination[i] = source[i];
+    }
+}
+
+void Employee::freeArrayOfEmployees(Employee *&source) {
+
+    delete[] source;
+    source = nullptr;
+}
+
+void Employee::moveArrayOfEmployees(Employee *&source, Employee *&destination) noexcept {
+
+    destination = source;
+    source = nullptr;
+}
+
 bool Employee::isValid() const {
 
     if (id <= 0) return false;
@@ -154,7 +180,7 @@ bool Employee::operator==(const Employee &other) const {
     return false;
 }
 
-auto Employee::operator<=>(const Employee &other) const {
+std::strong_ordering Employee::operator<=>(const Employee &other) const {
 
     if (std::abs(salary - other.salary) < Utils::EPSILON) return id <=> other.id;
     if (salary < other.salary) return std::strong_ordering::less;

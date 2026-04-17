@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <utility>
+#include <iostream>
 
 // utility functions
 bool Department::isValid() const {
@@ -22,20 +23,16 @@ bool Department::isValid() const {
 
 Utils::ErrorCode Department::findEmployeeInArray(const unsigned int employeeID, unsigned int &employeeIndex) const {
 
-    bool employeeFoundFlag = false;
-
     for (int i = 0; i < countOfEmployees; i++) {
 
         if (employees[i].getID() == employeeID) {
 
-            employeeFoundFlag = true;
             employeeIndex = i;
-            break;
+            return Utils::ErrorCode::OK;
         }
     }
 
-    if (employeeFoundFlag == false) return Utils::ErrorCode::NotFound;
-    return Utils::ErrorCode::OK;
+    return Utils::ErrorCode::NotFound;
 }
 
 double Department::getAverageSalaryOfDepartment() const {
@@ -50,6 +47,16 @@ double Department::getAverageSalaryOfDepartment() const {
     averageSalary /= countOfEmployees;
 
     return averageSalary;
+}
+
+const char *Department::getName() const {
+
+    return name;
+}
+
+bool Department::hasNoMoreCapacity() const {
+
+    return countOfEmployees >= capacity;
 }
 
 // rule of 5
@@ -80,7 +87,7 @@ Department &Department::operator=(const Department &other) {
     if (!other.isValid()) return *this;
 
     Utils::copyString(other.name, name);
-    Utils::copyArrayOfEmployees(other.employees, other.countOfEmployees, employees);
+    Employee::copyArrayOfEmployees(other.employees, other.countOfEmployees, employees);
     capacity = other.capacity;
     countOfEmployees = other.countOfEmployees;
 
@@ -93,7 +100,7 @@ Department::Department(Department &&other) noexcept {
     if (!other.isValid()) return;
 
     Utils::moveString(other.name, name);
-    Utils::moveArrayOfEmployees(other.employees, employees);
+    Employee::moveArrayOfEmployees(other.employees, employees);
 
     capacity = other.capacity;
     countOfEmployees = other.countOfEmployees;
@@ -107,7 +114,7 @@ Department &Department::operator=(Department &&other) noexcept {
     if (!other.isValid()) return *this;
 
     Utils::moveString(other.name, name);
-    Utils::moveArrayOfEmployees(other.employees, employees);
+    Employee::moveArrayOfEmployees(other.employees, employees);
 
     capacity = other.capacity;
     countOfEmployees = other.countOfEmployees;
@@ -118,14 +125,14 @@ Department &Department::operator=(Department &&other) noexcept {
 Department::~Department() {
 
     Utils::freeString(name);
-    Utils::freeArrayOfEmployees(employees);
+    Employee::freeArrayOfEmployees(employees);
 
     countOfEmployees = 0;
     capacity = 0;
 }
 
 // methods
-//NOTE we want to force the user to use the move semantics, so if an employee is created it must be part of a department
+// NOTE we want to force the user to use the move semantics, so if an employee is created it must be part of a department
 Utils::ErrorCode Department::addEmployee(Employee &&employee) {
 
     if (countOfEmployees >= capacity) return Utils::ErrorCode::Full;
@@ -137,7 +144,7 @@ Utils::ErrorCode Department::addEmployee(Employee &&employee) {
     return Utils::ErrorCode::OK;
 }
 
-Utils::ErrorCode Department::removeEmployee(const unsigned int employeeID) const {
+Utils::ErrorCode Department::removeEmployee(const unsigned int employeeID) {
 
     unsigned int employeeIndex = 0;
 
@@ -148,6 +155,8 @@ Utils::ErrorCode Department::removeEmployee(const unsigned int employeeID) const
 
         employees[i - 1] = std::move(employees[i]);
     }
+
+    countOfEmployees--;
 
     return Utils::ErrorCode::OK;
 }
@@ -196,6 +205,19 @@ Department& Department::operator()(const unsigned int rate) {
 Department::operator bool() const {
 
     return countOfEmployees != 0;
+}
+
+std::ostream &operator<<(std::ostream &output, const Department &department) {
+
+    output << department.name << ": " << department.countOfEmployees << " employees, Capacity: "
+    << department.capacity << std::endl;
+
+    for (unsigned int i = 0; i < department.countOfEmployees; i++) {
+
+        output << department.employees[i] << std::endl;
+    }
+
+    return output;
 }
 
 

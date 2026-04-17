@@ -26,6 +26,8 @@ public:
 
     // utility functions
     bool isValid() const;
+    const char* getName() const;
+    bool hasNoMoreCapacity() const;
 
     // rule of 5
     Department();
@@ -41,7 +43,7 @@ public:
 
     // methods
     Utils::ErrorCode addEmployee(Employee&& employee);
-    Utils::ErrorCode removeEmployee(unsigned int employeeID) const;
+    Utils::ErrorCode removeEmployee(unsigned int employeeID);
 
     // operators
     friend std::ostream& operator<<(std::ostream& output, const Department& department);
