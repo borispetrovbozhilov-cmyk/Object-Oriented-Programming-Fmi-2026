@@ -14,6 +14,7 @@ unsigned int Employee::countOfEmployees = 0;
 void Employee::copyArrayOfEmployees(const Employee *source, const unsigned int sourceSize, Employee *&destination) {
 
     if(source == nullptr) return;
+    if (source == destination) return;
 
     delete[] destination;
 
@@ -33,6 +34,10 @@ void Employee::freeArrayOfEmployees(Employee *&source) {
 
 void Employee::moveArrayOfEmployees(Employee *&source, Employee *&destination) noexcept {
 
+    if(source == nullptr) return;
+    if (source == destination) return;
+
+    delete[] destination;
     destination = source;
     source = nullptr;
 }
