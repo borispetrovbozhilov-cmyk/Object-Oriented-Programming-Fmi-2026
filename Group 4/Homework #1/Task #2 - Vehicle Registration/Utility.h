@@ -7,7 +7,12 @@
 
 
 
-class Utility {
+namespace Utility {
+
+    bool isLetter(const char c);
+    bool isDigit(const char c);
+    void copyStringData(const char* source, char*& destination);
+    void moveStringData(char*& source, char*& destination);
 
 };
 

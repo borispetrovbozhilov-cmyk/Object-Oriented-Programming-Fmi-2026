@@ -21,8 +21,6 @@ private:
     char* registration = nullptr;
 
     // utility functions
-    static bool isLetter(const char c);
-    static bool isDigit(const char c);
     static bool checkRegistrationValidity(const char* registration);
 
 public:
@@ -32,7 +30,8 @@ public:
 
     // rule of 5
     Registration() = delete;
-    Registration(const char* registration);
+
+    explicit Registration(const char* registration);
 
     Registration(const Registration& other);
     Registration& operator=(const Registration& other);
