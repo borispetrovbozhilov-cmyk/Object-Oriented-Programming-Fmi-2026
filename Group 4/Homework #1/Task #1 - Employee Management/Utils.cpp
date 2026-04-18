@@ -10,6 +10,7 @@ void Utils::copyString(const char* source, char*& destination) {
 
     if (source == nullptr) return;
     if (source[0] == '\0') return;
+    if (source == destination) return;
 
     delete[] destination;
 
@@ -30,6 +31,11 @@ void Utils::freeString(char*& source) {
 
 void Utils::moveString(char*& source, char*& destination) noexcept {
 
+    if (source == nullptr) return;
+    if (source[0] == '\0') return;
+    if (source == destination) return;
+
+    delete[] destination;
     destination = source;
     source = nullptr;
 }
