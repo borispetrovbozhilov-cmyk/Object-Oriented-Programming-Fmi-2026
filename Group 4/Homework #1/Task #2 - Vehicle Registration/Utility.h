@@ -1,0 +1,16 @@
+//
+// Created by Boris Bozhilov on 4/19/2026.
+//
+
+#ifndef OBJECT_ORIENTED_PROGRAMMING_FMI_2026_UTILITY_H
+#define OBJECT_ORIENTED_PROGRAMMING_FMI_2026_UTILITY_H
+
+
+
+class Utility {
+
+};
+
+
+
+#endif //OBJECT_ORIENTED_PROGRAMMING_FMI_2026_UTILITY_H

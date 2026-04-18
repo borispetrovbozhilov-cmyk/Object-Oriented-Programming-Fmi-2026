@@ -12,13 +12,18 @@ class Registration {
 
 private:
 
+    // the length of the registration when 2 characters are used for the city
     static constexpr unsigned int MAX_LENGTH_OF_REGISTRATION = 8;
+
+    // the length of the registration when 1 character is used for the city
+    static constexpr unsigned int MIN_LENGTH_OF_REGISTRATION = 7;
 
     char* registration = nullptr;
 
     // utility functions
     static bool isLetter(const char c);
     static bool isDigit(const char c);
+    static bool checkRegistrationValidity(const char* registration);
 
 public:
 
@@ -27,7 +32,7 @@ public:
 
     // rule of 5
     Registration() = delete;
-    Registration(char* registration);
+    Registration(const char* registration);
 
     Registration(const Registration& other);
     Registration& operator=(const Registration& other);
