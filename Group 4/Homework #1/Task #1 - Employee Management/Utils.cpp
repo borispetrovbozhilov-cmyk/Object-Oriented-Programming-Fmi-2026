@@ -14,7 +14,7 @@ void Utils::copyString(const char* source, char*& destination) {
 
     delete[] destination;
 
-    unsigned int sourceLength = strlen(source);
+    const unsigned int sourceLength = strlen(source);
 
     destination = new char[sourceLength + 1];
 

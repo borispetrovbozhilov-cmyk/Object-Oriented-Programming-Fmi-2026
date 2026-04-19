@@ -12,7 +12,6 @@ class Company {
 private:
 
     static constexpr unsigned int MAX_COUNT_OF_DEPARTMENTS = 10;
-    static constexpr unsigned int MAX_CAPACITY_OF_DEPARTMENTS = 10;
 
     Department* departments = nullptr;
     unsigned int countOfDepartments = 0;
@@ -36,7 +35,7 @@ public:
     static Company& getInstance();
 
     // methods
-    Utils::ErrorCode addDepartment(const char* departmentName);
+    Utils::ErrorCode addDepartment(const char* departmentName, const unsigned int departmentCapacity);
     Utils::ErrorCode removeDepartment(const char* departmentName);
     Utils::ErrorCode addEmployeeToDepartment(const char* departmentName, Employee&& employee) const;
     Utils::ErrorCode removeEmployeeFromDepartment(const char* departmentName, const unsigned int employeeID) const;

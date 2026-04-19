@@ -6,13 +6,14 @@
 
 #include <ostream>
 #include <utility>
+#include <cstring>
 
 // utility functions
 Utils::ErrorCode Company::findDepartmentIndex(const char *departmentName, unsigned int &departmentIndex) const {
 
     for (unsigned int i = 0; i < countOfDepartments; i++) {
 
-        if (*departments[i].getName() == *departmentName) {
+        if (strcmp(departments[i].getName(), departmentName) == 0) {
             departmentIndex = i;
             return Utils::ErrorCode::OK;
         }
@@ -41,12 +42,11 @@ Company &Company::getInstance() {
 
 
 // methods
-Utils::ErrorCode Company::addDepartment(const char *departmentName) {
+Utils::ErrorCode Company::addDepartment(const char *departmentName, const unsigned int departmentCapacity) {
 
     if (countOfDepartments >= MAX_COUNT_OF_DEPARTMENTS) return Utils::ErrorCode::Full;
 
-    departments[countOfDepartments] = Department(departmentName, MAX_CAPACITY_OF_DEPARTMENTS);
-    countOfDepartments++;
+    departments[countOfDepartments++] = Department(departmentName, departmentCapacity);
 
     return Utils::ErrorCode::OK;
 }
@@ -106,6 +106,7 @@ std::ostream& operator<<(std::ostream &output, const Company &company) {
 }
 
 Company::operator bool() const {
+
     if (countOfDepartments == 0) return false;
 
     for (unsigned int i = 0; i < countOfDepartments; i++) {

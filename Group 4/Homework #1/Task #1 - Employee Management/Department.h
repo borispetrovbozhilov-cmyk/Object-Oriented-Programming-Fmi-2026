@@ -21,6 +21,8 @@ private:
     // utility functions
     Utils::ErrorCode findEmployeeInArray(const unsigned int employeeID, unsigned int& employeeIndex) const;
     double getAverageSalaryOfDepartment() const;
+    void copyDepartmentDataFromOther(const Department& other);
+    void moveDepartmentDataFromOther(Department&& other);
 
 public:
 

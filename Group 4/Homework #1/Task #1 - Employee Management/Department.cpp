@@ -49,7 +49,7 @@ double Department::getAverageSalaryOfDepartment() const {
     return averageSalary;
 }
 
-const char *Department::getName() const {
+const char* Department::getName() const {
 
     return name;
 }
@@ -57,6 +57,22 @@ const char *Department::getName() const {
 bool Department::hasNoMoreCapacity() const {
 
     return countOfEmployees >= capacity;
+}
+
+void Department::copyDepartmentDataFromOther(const Department &other) {
+
+    Utils::copyString(other.name, name);
+    Employee::copyArrayOfEmployees(other.employees, other.countOfEmployees, employees);
+    capacity = other.capacity;
+    countOfEmployees = other.countOfEmployees;
+}
+
+void Department::moveDepartmentDataFromOther(Department &&other) {
+
+    Utils::moveString(other.name, name);
+    Employee::moveArrayOfEmployees(other.employees, employees);
+    capacity = other.capacity;
+    countOfEmployees = other.countOfEmployees;
 }
 
 // rule of 5
@@ -73,23 +89,20 @@ Department::Department(const char *name, const unsigned int capacity){
     employees = new Employee[capacity];
 }
 
-Department::Department(const Department &other) : countOfEmployees(other.countOfEmployees), capacity(other.capacity){
+Department::Department(const Department &other) {
 
-    Utils::copyString(other.name, name);
-    employees = new Employee[other.capacity];
+    if (!other.isValid()) return;
+
+    copyDepartmentDataFromOther(other);
 }
 
 Department &Department::operator=(const Department &other) {
 
     if (this == &other) return *this;
 
-    // NOTE we are going to forbid making an object invalid to avoid accidents
     if (!other.isValid()) return *this;
 
-    Utils::copyString(other.name, name);
-    Employee::copyArrayOfEmployees(other.employees, other.countOfEmployees, employees);
-    capacity = other.capacity;
-    countOfEmployees = other.countOfEmployees;
+    copyDepartmentDataFromOther(other);
 
     return *this;
 }
@@ -99,11 +112,7 @@ Department::Department(Department &&other) noexcept {
     // we want to forbid taking the other object's invalid data, so we set it to the default invalid state
     if (!other.isValid()) return;
 
-    Utils::moveString(other.name, name);
-    Employee::moveArrayOfEmployees(other.employees, employees);
-
-    capacity = other.capacity;
-    countOfEmployees = other.countOfEmployees;
+    moveDepartmentDataFromOther(std::move(other));
 }
 
 Department &Department::operator=(Department &&other) noexcept {
@@ -113,11 +122,7 @@ Department &Department::operator=(Department &&other) noexcept {
     // if the other object is invalid we don't take the invalid data
     if (!other.isValid()) return *this;
 
-    Utils::moveString(other.name, name);
-    Employee::moveArrayOfEmployees(other.employees, employees);
-
-    capacity = other.capacity;
-    countOfEmployees = other.countOfEmployees;
+    moveDepartmentDataFromOther(std::move(other));
 
     return *this;
 }
@@ -126,7 +131,6 @@ Department::~Department() {
 
     Utils::freeString(name);
     Employee::freeArrayOfEmployees(employees);
-
     countOfEmployees = 0;
     capacity = 0;
 }
@@ -138,8 +142,7 @@ Utils::ErrorCode Department::addEmployee(Employee &&employee) {
     if (countOfEmployees >= capacity) return Utils::ErrorCode::Full;
     if (!employee.isValid()) return Utils::ErrorCode::InvalidInput;
 
-    employees[countOfEmployees] = std::move(employee);
-    countOfEmployees++;
+    employees[countOfEmployees++] = std::move(employee);
 
     return Utils::ErrorCode::OK;
 }

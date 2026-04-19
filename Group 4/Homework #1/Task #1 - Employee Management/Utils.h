@@ -8,6 +8,7 @@
 namespace Utils {
 
     constexpr double EPSILON = 0.01;
+    constexpr unsigned int MAX_CAPACITY_OF_DEPARTMENTS = 10;
 
     enum class ErrorCode {
         OK,

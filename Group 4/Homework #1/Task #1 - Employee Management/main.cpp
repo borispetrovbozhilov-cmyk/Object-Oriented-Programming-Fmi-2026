@@ -20,8 +20,8 @@ int main() {
 
     Company& company = Company::getInstance();
 
-    company.addDepartment("Engineering");
-    company.addDepartment("Design");
+    company.addDepartment("Engineering", Utils::MAX_CAPACITY_OF_DEPARTMENTS);
+    company.addDepartment("Design", Utils::MAX_CAPACITY_OF_DEPARTMENTS);
 
     company.addEmployeeToDepartment("Engineering", std::move(e1));
     company.addEmployeeToDepartment("Engineering", std::move(e2));

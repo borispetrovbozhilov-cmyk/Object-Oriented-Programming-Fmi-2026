@@ -24,6 +24,9 @@ private:
     char* position = nullptr;
     double salary = -1;
 
+    void copyEmployeeDataFromOther(const Employee& other);
+    void moveEmployeeDataFromOther(Employee&& other);
+
 public:
 
     // utility functions

@@ -59,6 +59,25 @@ unsigned int Employee::getID() const {
     return id;
 }
 
+void Employee::copyEmployeeDataFromOther(const Employee &other) {
+
+    this->id = other.id;
+    this->salary = other.salary;
+    Utils::copyString(other.name, name);
+    Utils::copyString(other.position, position);
+}
+
+void Employee::moveEmployeeDataFromOther(Employee &&other) {
+
+    this->id = other.id;
+    this->salary = other.salary;
+    Utils::moveString(other.name, name);
+    Utils::moveString(other.position, position);
+
+    other.id = 0;
+    other.salary = -1;
+}
+
 // rule of 5
 Employee::Employee() = default;
 
@@ -76,12 +95,11 @@ Employee::Employee(const char *name, const char *position, const double salary){
     Utils::copyString(position, this->position);
 }
 
-// name and position are set to nullptr in case other is invalid and other's strings are nullptr as well
-// (which will cause the copyString() function to exit early and not initialize this's strings)
-Employee::Employee(const Employee &other) : id(other.id), name(nullptr), position(nullptr), salary(other.salary){
+Employee::Employee(const Employee &other){
 
-    Utils::copyString(other.name, name);
-    Utils::copyString(other.position, position);
+    if (!other.isValid()) return;
+
+    copyEmployeeDataFromOther(other);
 }
 
 Employee& Employee::operator=(const Employee &other) {
@@ -91,22 +109,16 @@ Employee& Employee::operator=(const Employee &other) {
     // if other isn't a valid Employee object then we don't copy its data and leave it as it is
     if (!other.isValid()) return *this;
 
-    this->id = other.id;
-    this->salary = other.salary;
-
-    Utils::copyString(other.name, name);
-    Utils::copyString(other.position, position);
+    copyEmployeeDataFromOther(other);
 
     return *this;
 }
 
-Employee::Employee(Employee &&other) noexcept : id(other.id), salary(other.salary){
+Employee::Employee(Employee &&other) noexcept {
 
-    Utils::moveString(other.name, name);
-    Utils::moveString(other.position, position);
+    if (!other.isValid()) return;
 
-    other.id = 0;
-    other.salary = -1;
+    moveEmployeeDataFromOther(std::move(other));
 }
 
 
@@ -117,14 +129,7 @@ Employee& Employee::operator=(Employee &&other) noexcept {
     // if other isn't a valid Employee object then we don't steal its data and leave it as it is
     if (!other.isValid()) return *this;
 
-    id = other.id;
-    salary = other.salary;
-
-    Utils::moveString(other.name, name);
-    Utils::moveString(other.position, position);
-
-    other.id = 0;
-    other.salary = -1;
+    moveEmployeeDataFromOther(std::move(other));
 
     return *this;
 }
