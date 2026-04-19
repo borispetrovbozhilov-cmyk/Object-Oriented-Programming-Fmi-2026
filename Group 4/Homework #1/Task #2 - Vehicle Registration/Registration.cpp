@@ -13,6 +13,8 @@
 
 bool Registration::checkRegistrationValidity(const char* registration) {
 
+    if (registration == nullptr) return false;
+
     const unsigned int registrationLength = strlen(registration);
 
     // size checks
@@ -20,18 +22,20 @@ bool Registration::checkRegistrationValidity(const char* registration) {
     if (registrationLength < MIN_LENGTH_OF_REGISTRATION) return false;
 
     // first part check
-    if (registrationLength == MAX_LENGTH_OF_REGISTRATION && !Utility::isLetter(registration[0])) return false;
-    if (!Utility::isLetter(registration[1])) return false;
+    if (!Utility::isLetter(registration[0])) return false;
+    if (registrationLength == MAX_LENGTH_OF_REGISTRATION && !Utility::isLetter(registration[1])) return false;
+    if (registrationLength == MIN_LENGTH_OF_REGISTRATION && !Utility::isDigit(registration[1])) return false;
 
     // second part check
     if (!Utility::isDigit(registration[2])) return false;
     if (!Utility::isDigit(registration[3])) return false;
     if (!Utility::isDigit(registration[4])) return false;
-    if (!Utility::isDigit(registration[5])) return false;
+    if (registrationLength == MAX_LENGTH_OF_REGISTRATION && !Utility::isDigit(registration[5])) return false;
+    if (registrationLength == MIN_LENGTH_OF_REGISTRATION && !Utility::isLetter(registration[5])) return false;
 
     // third part check
     if (!Utility::isLetter(registration[6])) return false;
-    if (!Utility::isLetter(registration[7])) return false;
+    if (registrationLength == MAX_LENGTH_OF_REGISTRATION && !Utility::isLetter(registration[7])) return false;
 
     return true;
 }
@@ -99,12 +103,16 @@ char *Registration::getRegistrationAsString() const {
 // operators
 bool Registration::operator==(const Registration &other) const {
 
-    return registration == other.registration;
+    return strcmp(registration, other.registration) == 0;
 }
 
 std::strong_ordering Registration::operator<=>(const Registration &other) const {
 
-    return registration <=> other.registration;
+    const int stringCompare = strcmp(registration, other.registration);
+
+    if (stringCompare < 0) return std::strong_ordering::less;
+    if (stringCompare > 0) return std::strong_ordering::greater;
+    return std::strong_ordering::equal;
 }
 
 std::ostream &operator<<(std::ostream &output, const Registration &registration) {

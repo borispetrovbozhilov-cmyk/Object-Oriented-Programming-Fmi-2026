@@ -12,18 +12,28 @@ class Registration {
 
 private:
 
-    // the length of the registration when 2 characters are used for the city
-    static constexpr unsigned int MAX_LENGTH_OF_REGISTRATION = 8;
-
-    // the length of the registration when 1 character is used for the city
-    static constexpr unsigned int MIN_LENGTH_OF_REGISTRATION = 7;
-
     char* registration = nullptr;
 
     // utility functions
     static bool checkRegistrationValidity(const char* registration);
 
 public:
+
+    // NOTE these constant are used to the VehicleList class make the code more universal if registration way is changed
+    static constexpr unsigned int MAX_LENGTH_LOCATION_CODE = 2;
+    static constexpr unsigned int LENGTH_DIGITS_PART = 4;
+    static constexpr unsigned int LENGTH_CHARACTERS_PART = 2;
+
+    // the length of the registration when 2 characters are used for the city
+    static constexpr unsigned int MAX_LENGTH_OF_REGISTRATION = MAX_LENGTH_LOCATION_CODE +
+                                                                LENGTH_DIGITS_PART +
+                                                                LENGTH_CHARACTERS_PART;
+
+
+    // the length of the registration when 1 character is used for the city
+    static constexpr unsigned int MIN_LENGTH_OF_REGISTRATION = MAX_LENGTH_LOCATION_CODE - 1 +
+                                                                LENGTH_DIGITS_PART +
+                                                                LENGTH_CHARACTERS_PART;
 
     // utility functions
     bool isValid() const;

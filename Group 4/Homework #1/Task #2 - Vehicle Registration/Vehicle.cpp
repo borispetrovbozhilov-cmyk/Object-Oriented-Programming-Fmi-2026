@@ -25,23 +25,28 @@ void Vehicle::copyVehicleDataFromOther(const Vehicle &other) {
 
 void Vehicle::moveVehicleDataFromOther(Vehicle&& other) {
 
-    registration = other.registration;
+    registration = std::move(other.registration);
     Utility::moveStringData(other.description, description);
     yearOfCreation = other.yearOfCreation;
     engineHorsePower = other.engineHorsePower;
 
-    other.registration = Registration(nullptr);
     other.description = nullptr;
     other.yearOfCreation = 0;
     other.engineHorsePower = 0;
 }
 
+const Registration &Vehicle::getRegistration() const {
+
+    return registration;
+}
+
 // rule of 5
-Vehicle::Vehicle(Registration registration, const char *description,
-    const unsigned short yearOfCreation, unsigned int engineHorsePower) {
+Vehicle::Vehicle(const Registration& registration, const char *description,
+    const unsigned short yearOfCreation, const unsigned int engineHorsePower) {
 
     if (!registration.isValid()) return;
 
+    this->registration = registration;
     Utility::copyStringData(description, this->description);
     this->yearOfCreation = yearOfCreation;
     this->engineHorsePower = engineHorsePower;
@@ -109,4 +114,6 @@ std::ostream &operator<<(std::ostream &output, const Vehicle &vehicle) {
     output << "Description: " << vehicle.description << std::endl;
     output << "Year of creation: " << vehicle.yearOfCreation << std::endl;
     output << "Horse power: " << vehicle.engineHorsePower << std::endl;
+
+    return output;
 }

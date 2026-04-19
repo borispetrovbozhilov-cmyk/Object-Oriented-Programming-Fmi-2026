@@ -22,11 +22,12 @@ public:
     bool isValid() const;
     void copyVehicleDataFromOther(const Vehicle& other);
     void moveVehicleDataFromOther(Vehicle&& other);
+    const Registration& getRegistration() const;
 
     // rule of 5
     Vehicle() = delete;
-    Vehicle(Registration registration, const char* description,
-        const unsigned short yearOfCreation, unsigned int engineHorsePower);
+    Vehicle(const Registration& registration, const char* description,
+        const unsigned short yearOfCreation, const unsigned int engineHorsePower);
 
     Vehicle(const Vehicle& other);
     Vehicle& operator=(const Vehicle& other);
