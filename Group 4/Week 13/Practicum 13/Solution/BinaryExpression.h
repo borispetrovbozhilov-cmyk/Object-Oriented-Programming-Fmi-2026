@@ -20,11 +20,16 @@ protected:
 public:
 
     BinaryExpression() = default;
-    explicit BinaryExpression(std::unique_ptr<IExpression> expression1, std::unique_ptr<IExpression> expression2,
+    explicit BinaryExpression(const std::unique_ptr<IExpression>& expression1,
+        const std::unique_ptr<IExpression>& expression2,
         const char expressionOperator);
+
+    BinaryExpression(const BinaryExpression& other);
 
     [[nodiscard]] double evaluate() const override = 0;
     [[nodiscard]] std::string toString() const override;
+
+    [[nodiscard]] virtual std::unique_ptr<IExpression> clone() const = 0;
 
     virtual ~BinaryExpression() = default;
 };

@@ -15,3 +15,8 @@ std::string NegativeExpression::toString() const {
 
     return "-(" + expression->toString() + ")";
 }
+
+std::unique_ptr<IExpression> NegativeExpression::clone() const {
+
+    return std::make_unique<NegativeExpression>(*this);
+}

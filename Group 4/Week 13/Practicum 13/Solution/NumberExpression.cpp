@@ -11,3 +11,8 @@ double NumberExpression::evaluate() const {
 std::string NumberExpression::toString() const {
     return std::to_string(value);
 }
+
+std::unique_ptr<IExpression> NumberExpression::clone() const {
+
+    return std::make_unique<NumberExpression>(*this);
+}

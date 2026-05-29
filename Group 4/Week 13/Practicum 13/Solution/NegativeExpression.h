@@ -12,10 +12,12 @@ class NegativeExpression : public UnaryExpression {
 public:
 
     NegativeExpression() = default;
-    explicit NegativeExpression(std::unique_ptr<IExpression> expression) : UnaryExpression(std::move(expression)){}
+    explicit NegativeExpression(const std::unique_ptr<IExpression> &expression) : UnaryExpression(expression){}
 
     [[nodiscard]] double evaluate() const override;
     [[nodiscard]] std::string toString() const override;
+
+    [[nodiscard]] std::unique_ptr<IExpression> clone() const override;
 
     ~NegativeExpression() override = default;
 };

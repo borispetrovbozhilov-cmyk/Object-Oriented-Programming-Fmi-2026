@@ -13,3 +13,8 @@ std::string AbsoluteExpression::toString() const {
 
     return "|" + expression->toString() + "|";
 }
+
+std::unique_ptr<IExpression> AbsoluteExpression::clone() const {
+
+    return std::make_unique<AbsoluteExpression>(*this);
+}

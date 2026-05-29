@@ -12,10 +12,12 @@ class AbsoluteExpression : public UnaryExpression{
 public:
 
     AbsoluteExpression() = default;
-    explicit AbsoluteExpression(std::unique_ptr<IExpression> expression) : UnaryExpression(std::move(expression)){}
+    explicit AbsoluteExpression(const std::unique_ptr<IExpression> &expression) : UnaryExpression(expression){}
 
     [[nodiscard]] double evaluate() const override;
     [[nodiscard]] std::string toString() const override;
+
+    [[nodiscard]] std::unique_ptr<IExpression> clone() const override;
 
     ~AbsoluteExpression() override = default;
 };

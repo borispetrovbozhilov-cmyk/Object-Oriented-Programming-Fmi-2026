@@ -8,3 +8,8 @@ double SubtractionExpression::evaluate() const {
 
     return expression1->evaluate() - expression2->evaluate();
 }
+
+std::unique_ptr<IExpression> SubtractionExpression::clone() const {
+
+    return std::make_unique<SubtractionExpression>(*this);
+}

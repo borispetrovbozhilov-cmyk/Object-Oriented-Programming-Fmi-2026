@@ -11,3 +11,8 @@ double DivisionExpression::evaluate() const {
 
     return expression1->evaluate() / expression2->evaluate();
 }
+
+std::unique_ptr<IExpression> DivisionExpression::clone() const {
+
+    return std::make_unique<DivisionExpression>(*this);
+}

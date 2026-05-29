@@ -20,6 +20,8 @@ public:
     [[nodiscard]] double evaluate() const override;
     [[nodiscard]] std::string toString() const override;
 
+    [[nodiscard]] std::unique_ptr<IExpression> clone() const override;
+
     ~NumberExpression() override = default;
 };
 

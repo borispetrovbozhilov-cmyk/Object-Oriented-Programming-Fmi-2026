@@ -18,10 +18,14 @@ protected:
 public:
 
     UnaryExpression() = default;
-    explicit UnaryExpression(std::unique_ptr<IExpression> expression) : expression(std::move(expression)){}
+    explicit UnaryExpression(const std::unique_ptr<IExpression> &expression);
 
-    double evaluate() const override = 0;
-    std::string toString() const override = 0;
+    UnaryExpression(const UnaryExpression& other);
+
+    [[nodiscard]] double evaluate() const override = 0;
+    [[nodiscard]] std::string toString() const override = 0;
+
+    [[nodiscard]] std::unique_ptr<IExpression> clone() const override = 0;
 
     virtual ~UnaryExpression() = default;
 };

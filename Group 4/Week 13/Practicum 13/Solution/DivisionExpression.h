@@ -15,10 +15,12 @@ private:
 public:
 
     DivisionExpression() = default;
-    DivisionExpression(std::unique_ptr<IExpression> expression1, std::unique_ptr<IExpression> expression2) :
-    BinaryExpression(std::move(expression1), std::move(expression2), '/'){}
+    DivisionExpression(const std::unique_ptr<IExpression> &expression1, const std::unique_ptr<IExpression> &expression2)
+        : BinaryExpression(expression1, expression2, '/'){}
 
     [[nodiscard]] double evaluate() const override;
+
+    [[nodiscard]] std::unique_ptr<IExpression> clone() const override;
 
     ~DivisionExpression() override = default;
 };
