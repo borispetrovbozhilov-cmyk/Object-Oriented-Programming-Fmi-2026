@@ -18,7 +18,7 @@ private:
 public:
 
     Car() = default;
-    Car(std::string ownerName, std::string brand, std::string model,
+    Car(std::string registration, std::string ownerName, std::string brand, std::string model,
         const unsigned int year);
 
     [[nodiscard]] std::unique_ptr<Vehicle> clone() const override;

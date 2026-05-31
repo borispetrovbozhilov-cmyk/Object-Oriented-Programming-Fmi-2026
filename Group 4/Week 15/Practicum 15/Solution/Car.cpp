@@ -4,7 +4,8 @@
 
 #include "Car.h"
 
-Car::Car(std::string ownerName, std::string brand, std::string model, const unsigned int year) :
+Car::Car(std::string registration, std::string ownerName, std::string brand, std::string model,
+    const unsigned int year) : Vehicle(std::move(registration)),
     ownerName(std::move(ownerName)), brand(std::move(brand)), model(std::move(model)), year(year) {
 }
 

@@ -18,8 +18,8 @@ private:
 public:
 
     Train() = default;
-    Train(const unsigned int mechanicsCount, const unsigned int wagonCount, const unsigned int seatsCount,
-        const unsigned int standingCount);
+    Train(std::string registration, const unsigned int mechanicsCount, const unsigned int wagonCount,
+        const unsigned int seatsCount, const unsigned int standingCount);
 
     [[nodiscard]] std::unique_ptr<Vehicle> clone() const override;
 

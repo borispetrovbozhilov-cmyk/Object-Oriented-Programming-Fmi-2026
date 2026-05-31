@@ -10,17 +10,30 @@
 class Vehicle {
 
 protected:
-    std::pmr::string registration;
+    std::string registration;
 
 public:
+
+    enum class Type {
+        Car,
+        Motorcycle,
+        Train,
+        Unknown
+    };
 
     Vehicle() = default;
     explicit Vehicle(std::string registration);
 
+    const std::string& getRegistration() const;
+
     [[nodiscard]] virtual std::unique_ptr<Vehicle> clone() const = 0;
+
+    virtual void print(std::ostream& output);
 
     virtual ~Vehicle() = default;
 };
+
+
 
 
 

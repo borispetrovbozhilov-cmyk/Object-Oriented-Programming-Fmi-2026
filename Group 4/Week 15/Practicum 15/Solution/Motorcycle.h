@@ -16,7 +16,7 @@ private:
 public:
 
     Motorcycle() = default;
-    Motorcycle(std::string ownerName, const unsigned int maxSpeed);
+    Motorcycle(std::string registration, std::string ownerName, const unsigned int maxSpeed);
 
     [[nodiscard]] std::unique_ptr<Vehicle> clone() const override;
 

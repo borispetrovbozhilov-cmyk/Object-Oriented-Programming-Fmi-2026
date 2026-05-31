@@ -4,8 +4,8 @@
 
 #include "Motorcycle.h"
 
-Motorcycle::Motorcycle(std::string ownerName, const unsigned int maxSpeed) :
-ownerName(std::move(ownerName)), maxSpeed(maxSpeed) {
+Motorcycle::Motorcycle(std::string registration, std::string ownerName, const unsigned int maxSpeed) :
+    Vehicle(std::move(registration)), ownerName(std::move(ownerName)), maxSpeed(maxSpeed) {
 }
 
 std::unique_ptr<Vehicle> Motorcycle::clone() const {
