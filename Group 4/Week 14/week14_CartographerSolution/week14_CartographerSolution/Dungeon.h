@@ -11,7 +11,7 @@ protected:
 
 	Dungeon() = default;
 	Dungeon(std::string name, const double x, const double y,
-		const unsigned threatLevel, const int depth);
+		const short threatLevel, const int depth);
 
 	virtual std::string getType() const override;
 	virtual void print() const override;

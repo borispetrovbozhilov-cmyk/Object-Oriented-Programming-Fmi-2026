@@ -2,7 +2,7 @@
 #include <iostream>
 
 Settlement::Settlement(std::string name, const double x, const double y, 
-    const unsigned threatLevel, const int population) :
+    const short threatLevel, const int population) :
     Landmark(std::move(name), x, y, threatLevel), population(population)
 {
 }

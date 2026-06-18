@@ -27,7 +27,7 @@ std::unique_ptr<Landmark> Territory::removeLandmark(const std::string& name)
     throw std::invalid_argument("Landmark with such name doesn't exists");
 }
 
-void Territory::setDangetLevel(const int dangerLevel)
+void Territory::setDangetLevel(const short dangerLevel)
 {
 
     if (dangerLevel < 0 || dangerLevel > 10)
@@ -66,4 +66,11 @@ void Territory::print()
 
         landmarks[i]->print();
     }
+}
+
+unsigned Territory::getDangerLevel() const
+{
+    if (landmarks.empty()) return 0;
+    
+    return landmarks[0]->getThreatLevel();
 }

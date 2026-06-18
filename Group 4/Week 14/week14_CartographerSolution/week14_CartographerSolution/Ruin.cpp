@@ -2,7 +2,7 @@
 #include <iostream>
 
 Ruin::Ruin(std::string name, const double x, const double y,
-    const unsigned threatLevel, std::string civilization) :
+    const short threatLevel, std::string civilization) :
     Landmark(std::move(name), x, y, threatLevel), civilization(std::move(civilization))
 {
 }

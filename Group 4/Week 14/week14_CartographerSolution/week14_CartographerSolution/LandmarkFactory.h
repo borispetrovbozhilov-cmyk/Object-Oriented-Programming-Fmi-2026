@@ -7,6 +7,8 @@
 
 class LandmarkFactory
 {
+public:
+
 	static std::unique_ptr<Landmark> create(
 		const std::string& type,
 		const std::string& name,

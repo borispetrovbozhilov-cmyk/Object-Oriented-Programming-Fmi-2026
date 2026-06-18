@@ -11,7 +11,7 @@ protected:
 
 	Settlement() = default;
 	Settlement(std::string name, const double x, const double y,
-		const unsigned threatLevel, const int population);
+		const short threatLevel, const int population);
 
 	virtual std::string getType() const override;
 	virtual void print() const override;

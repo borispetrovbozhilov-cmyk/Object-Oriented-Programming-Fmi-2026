@@ -21,8 +21,10 @@ public:
 
 	void addLandmark(std::unique_ptr<Landmark> landmark);
 	std::unique_ptr<Landmark> removeLandmark(const std::string& name);
-	void setDangetLevel(const int dangerLevel);
+	void setDangetLevel(const short dangerLevel);
 	bool hasLandmark(const std::string& name);
 	void print();
+
+	unsigned getDangerLevel() const;
 };
 

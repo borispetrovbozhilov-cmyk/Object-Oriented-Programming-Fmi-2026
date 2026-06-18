@@ -11,7 +11,7 @@ protected:
 
 	Ruin() = default;
 	Ruin(std::string name, const double x, const double y,
-		const unsigned threatLevel, std::string civilization);
+		const short threatLevel, std::string civilization);
 
 	virtual std::string getType() const override;
 	virtual void print() const override;

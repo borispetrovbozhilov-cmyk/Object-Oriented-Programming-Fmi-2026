@@ -2,7 +2,7 @@
 #include <iostream>
 
 Dungeon::Dungeon(std::string name, const double x, const double y,
-    const unsigned threatLevel, const int depth) :
+    const short threatLevel, const int depth) :
     Landmark(std::move(name), x, y, threatLevel), depth(depth)
 {
 }

@@ -26,7 +26,7 @@ protected:
 
 	NaturalFeature() = default;
 	NaturalFeature(std::string name, const double x, const double y,
-		const unsigned threatLevel, FeatureKind kind);
+		const short threatLevel, FeatureKind kind);
 
 	virtual std::string getType() const override;
 	virtual void print() const override;

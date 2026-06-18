@@ -2,7 +2,7 @@
 #include <iostream>
 
 NaturalFeature::NaturalFeature(std::string name, const double x, const double y,
-    const unsigned threatLevel, FeatureKind kind) :
+    const short threatLevel, FeatureKind kind) :
     Landmark(std::move(name), x, y, threatLevel), kind(kind)
 {
 }
