@@ -1,5 +1,16 @@
 #include "Territory.h"
 
+Territory::Territory(const Territory& other)
+{
+    const unsigned size = other.landmarks.size();
+
+    for (unsigned i = 0; i < size; i++)
+    {
+    
+        landmarks.push_back(other.landmarks[i]->clone());
+    }
+}
+
 void Territory::addLandmark(std::unique_ptr<Landmark> landmark)
 {
     if (landmark == nullptr) throw std::invalid_argument("Cannot add an empty landmark to the vector");

@@ -19,11 +19,6 @@ public:
 	static std::string kindToString(FeatureKind kind);
 	static FeatureKind stringToKind(const std::string& kindString);
 
-private:
-	FeatureKind kind = FeatureKind::Unknown;
-
-protected:
-
 	NaturalFeature() = default;
 	NaturalFeature(std::string name, const double x, const double y,
 		const short threatLevel, FeatureKind kind);
@@ -31,4 +26,8 @@ protected:
 	virtual std::string getType() const override;
 	virtual void print() const override;
 	virtual std::unique_ptr<Landmark> clone() override;
+
+private:
+	FeatureKind kind = FeatureKind::Unknown;
+
 };

@@ -7,7 +7,7 @@ class Dungeon : public Landmark
 private:
 	int depth = 0;
 
-protected:
+public:
 
 	Dungeon() = default;
 	Dungeon(std::string name, const double x, const double y,

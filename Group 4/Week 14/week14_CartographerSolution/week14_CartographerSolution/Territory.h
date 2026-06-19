@@ -13,11 +13,15 @@
 
 class Territory
 {
-protected:
+private:
 
 	std::vector<std::unique_ptr<Landmark>> landmarks;
 
 public:
+
+	Territory() = default;
+
+	Territory(const Territory& other);
 
 	void addLandmark(std::unique_ptr<Landmark> landmark);
 	std::unique_ptr<Landmark> removeLandmark(const std::string& name);

@@ -7,7 +7,7 @@ class Settlement : public Landmark
 private:
 	int population = 0;
 
-protected:
+public:
 
 	Settlement() = default;
 	Settlement(std::string name, const double x, const double y,

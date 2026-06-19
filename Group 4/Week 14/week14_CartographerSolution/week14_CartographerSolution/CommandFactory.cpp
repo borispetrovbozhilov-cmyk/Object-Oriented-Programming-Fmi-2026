@@ -55,4 +55,6 @@ std::unique_ptr<Command> CommandFactory::create(
     {
         return std::make_unique<SetDangerLevelCommand>(target, std::stoi(args));
     }
+
+    throw std::invalid_argument("There isn't a command of such type");
 }

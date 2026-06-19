@@ -7,7 +7,7 @@ class Ruin : public Landmark
 private:
 	std::string civilization;
 
-protected:
+public:
 
 	Ruin() = default;
 	Ruin(std::string name, const double x, const double y,
